@@ -46,7 +46,38 @@ class ModelTrainer:
                 'CatBoosting Regressor': CatBoostRegressor(verbose=False),
                 'AdaBoost Regressor': AdaBoostRegressor()
             }
-            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train,X_test = X_test,y_test=y_test,models=models)
+            # Hypertuning of parameters.
+            params={
+                'Decision Tree': {
+                    'criterion': ['squared_error', 'friedman_mse','absolute_error','poisson'],
+                },
+                'Random Forest': {
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                'Gradient Boosting': {
+                    'learning_rate': [.1,.01,.05,.001],
+                    'subsample': [.6,.7,.75,.8,.85,.9],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                'Linear Regression': {},
+                'K-neighbors Regressor': {
+                    'n_neighbors': [5,7,9,11],
+                },
+                # 'XGBRegressor': {
+                    # 'learning_rate': [.1,.01,.05,.001],
+                    # 'n_estimators': [8,16,32,64,128,256]
+                # },
+                'CatBoosting Regressor': {
+                    'depth':[6,8,10],
+                    'learning_rate': [.01,.05,.1],
+                    'iterations': [30,50,100]
+                }, 
+                'AdaBoost Regressor': {
+                    'learning_rate':[.1,.01,.5,.001],
+                    'n_estimators':[8,16,32,64,128,256]
+                }
+            }
+            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train,X_test = X_test,y_test=y_test,models=models,params=params)
             # the above function is present in utils.
 
             # getting best model score
