@@ -14,10 +14,9 @@ import os
 
 # Use @dataclass when the class:
 # Primarily stores values (like configuration parameters)
-
 # Doesn't require a lot of custom logic or methods
-
 # Benefits from auto-generated methods (like __init__, __repr__, etc.)
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
